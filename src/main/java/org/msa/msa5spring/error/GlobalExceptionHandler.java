@@ -39,6 +39,8 @@ public class GlobalExceptionHandler {
                         (fieldError) -> fieldError.getDefaultMessage() != null ? fieldError.getDefaultMessage() : "유효하지 않은 값입니다.",
                         (existing, replacement) -> existing
                 ));
+        log.debug("\n{}\n{}","***유효성 체크 에러***",errors);
+
         return  ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(
@@ -46,8 +48,7 @@ public class GlobalExceptionHandler {
                                 "E01",
                                 "유효성 체크 에러",
                                 errors
-                        )
-                );
+                        ));
     }
     //------------------------------------------------
 
@@ -58,7 +59,7 @@ public class GlobalExceptionHandler {
         log.debug("디버그 로깅");
         log.info("인포 로깅");
         log.warn("워닝 로깅");
-        log.error("에러 로깅");
+        log.error("에러 로깅",e);
 
         return ResponseEntity
                 .status(500)
